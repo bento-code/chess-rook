@@ -1,0 +1,88 @@
+<div class="bg-dark" id="main_container">
+    <div id="main_background">
+        <div id="content">
+            <app-navbar></app-navbar>
+            <div id="game_content" class="d-flex">
+                <div id="board_container">
+                    <ngx-chess-board [size]="size" [sourcePointColor]="sourcePointColor" [destinationPointColor]="destinationPointColor" [lightTileColor]="lightTileColor" [darkTileColor]="darkTileColor" #board></ngx-chess-board>
+                </div>
+                <div id="game_data" class="d-flex flex-column justify-content-top">
+                    <div id=data_container class="d-flex flex-row justify-content-center">
+
+                        <div id="clock" class="data_section col-6 d-flex flex-column justify-content-center">
+                            <div class="data_field black d-flex flex-row justify-content-around align-items-center">
+                                <div class="clock_field d-flex flex-column justify-content-center">
+                                    {{clock.blackTimeToString()}}
+                                </div>
+                            </div>
+                            <div class="data_field white d-flex flex-row justify-content-around align-items-center">
+                                <div class="clock_field d-flex flex-column justify-content-center">
+                                    {{clock.whiteTimeToString()}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="players" class="data_section col-6 d-flex flex-column justify-content-center">
+                            <div class="data_field black d-flex flex-row justify-content-around align-items-center">
+                                <div id="black_username" class="player_data">
+                                    {{black.username}}
+                                </div>
+                                <div id="black_rating" class="player_data">
+                                    {{black.rating.blitzActualRating}}
+                                </div>
+                            </div>
+                            <div class="data_field white d-flex flex-row justify-content-around align-items-center">
+                                <div id="white_username" class="player_data">
+                                    {{white.username}}
+                                </div>
+                                <div id="white_rating" class="player_data">
+                                    {{white.rating.blitzActualRating}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div id="movements" class=" d-flex flex-column justify-content-top mt-0">
+                        <div id="moves_header">
+                            <h2>Moves</h2>
+                        </div>
+                        <div id="moves_titles" class="d-flex flex-row justify-content-center">
+                            <div class="col-2 d-flex flex-column justify-content-center align-items-center move_border_bottom">
+                                N
+                            </div>
+                            <div class="col-5 d-flex flex-column justify-content-center align-items-center moves_title move_border_left move_border_bottom">
+                                White
+                            </div>
+                            <div class="col-5 d-flex flex-column justify-content-center align-items-center moves_title move_border_left move_border_bottom">
+                                Black
+                            </div>
+                        </div>
+                        <div id="movements_list">
+                            <ng-container *ngFor="let movement of movements; let i=index"  scrollY="true">
+                                <div class="d-flex flex-row justify-content-center">
+                                    <div class="col-2 movement d-flex flex-row justify-content-center move_border_bottom">
+                                        {{i+1}}
+                                    </div>
+                                    
+                                    <ng-container *ngFor="let turn of movement; let j=index">
+                                        <div class="col-5 d-flex flex-row justify-content-center move_border_left move_border_bottom">
+                                            <div class=" ">
+                                                {{turn}}
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+

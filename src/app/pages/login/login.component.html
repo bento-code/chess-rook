@@ -1,0 +1,55 @@
+<body>
+    <div class="bg-dark" id="main_container">
+        <div id="main_background">
+            <div id="content">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div id="header" class="d-flex justify-content-left align-items-center">
+                        <img id="header_icon" src="/assets/images/app_icon.png" >
+                        <h1 id="header_text">Chess Rook</h1>
+                    </div>
+                </div>
+                <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="container-fluid justify-content-center align-items-center pt-3 pb-3">
+                    <div class="form-row row justify-content-center align-items-center">
+                        <div class="form_field form-group justify-content-center align-items-center">
+                            <input type="text" name="username" class="form-control" [(ngModel)]="loginData.username" #username="ngModel" placeholder="username..." 
+                            [ngClass]="{'is-invalid': username.invalid}" username required>                    
+                        </div>
+                    </div>
+    
+                    <div class="form-row row justify-content-center align-items-center">              
+                        <div class="form_field form-group justify-content-center align-items-center">
+                            <input type="password" name="password" class="form-control" [(ngModel)]="loginData.password" #password="ngModel" placeholder="password..." 
+                            [ngClass]="{'is-invalid': password.invalid}" password required>
+                        </div>
+                    </div>
+    
+                    <div class="form-row row justify-content-center align-items-center">
+                        <div class="form_field form-group justify-content-center align-items-center">
+                            <button [routerLink]="'/app-home'" class="btn btn-primary darkblue" [disabled]="!(loginForm.valid)">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                
+                </form>
+                <div id="links" class="d-flex justify-content-center align-items-center">
+                    <div id="links_container" class="d-flex justify-content-center align-items-center">
+                        <div class="text_container col-5 d-flex justify-content-center align-items-center">
+                            <p class="text_link" id="links_text">Not a member yet?</p>
+                        </div>
+                        <div class="text_container col-3 d-flex justify-content-center align-items-center">
+                            <a class="text_link text_bold" routerLink="/app-register">Register</a> 
+                        </div>
+                        <div class="text_container col-1 mr-4 d-flex justify-content-center align-items-center" >
+                            <p class="text_link">|</p>
+                        </div>
+                        <div class="text_container col-3 d-flex justify-content-center align-items-center">
+                            <a class="text_link text_bold" routerLink="/app-home">Play as Guest</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>

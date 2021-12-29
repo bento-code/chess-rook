@@ -1,0 +1,41 @@
+img{
+    min-width: 5vw;
+    min-height:5vw;
+    max-width: 5vw;
+    max-height: 5vw;
+}
+
+
+nav{
+    min-height:10vh;
+    max-height: 10vh;
+    background-color: #0A131E;
+}
+
+#app_name{
+    font-size: 3vw;
+    font-weight: bold;
+    margin-left: 5vw;
+    color:white;
+}
+/*
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand">Chess Tower</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#home" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse justify-content-end" id="menu">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a routerLink="/app-home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/app-profile" class="nav-link">Profile</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+*/

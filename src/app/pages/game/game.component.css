@@ -1,0 +1,128 @@
+#main_container{
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin-top: -10vh;
+}
+
+#main_background{
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+
+    background-color: rgb(10, 19, 30);
+
+    /*background-size: max(100vw, 1400px) max(66.6666vw, 966px);*/
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 40%;
+
+}
+
+#content{
+    margin-top: 10vh;
+}
+
+#board_container{
+    
+}
+
+#game_content
+{
+    /*width: 50vw; 
+    height: 50vw; */
+    margin-top: 2.5vh;
+    margin-left: 2.8vw;
+    width: 94vw; 
+    max-height: 90vh;
+}
+
+#movements{
+    background-color: white;
+    margin-top: 3.5vh;
+    /*overflow: auto;*/
+}
+
+.player_data{
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+.clock_field{
+    font-size: 3vw;
+    font-weight: bold;
+}
+
+#game_data{
+    /*background-color: rgb(187, 255, 229);*/
+    width: max(calc(100vw - 82vh), 50vw);
+    margin-left: 3.5vw;
+}
+
+.data_section{
+    padding:0;
+}
+#clock{
+    padding-right: 1vw;
+}
+#players{
+    padding-left: 1vw;
+}
+
+.data_field{
+    /*width: 40%;
+    height: 20%;*/
+    background-color: grey;
+    text-align: center;
+    height: min(8.5vh, 8vw);
+    min-height: min(8.5vh, 8vw);
+    width: 100%;
+    margin-bottom:3.5vh;
+    margin-left: 0;
+}
+
+.white{
+    background-color: white;
+    color:black;
+}
+.black{
+    background-color: black;
+    color:white;
+}
+
+.movement{
+}
+
+#moves_header{
+    background-color: rgb(62, 114, 166);
+    color:black;
+    text-align: center;
+}
+
+.moves_titles{
+    height: 8vh;
+}
+
+.moves_title{
+    background-color: rgb(162, 196, 224);
+    color:black;
+    text-align: center;
+    height: 8vh;
+}
+
+.move_border_left{
+    /*border-left: rgb(62, 114, 166) 3px;*/
+    border-left: 1px solid rgb(62, 114, 166);
+}
+
+.move_border_bottom{
+    /*border-left: rgb(62, 114, 166) 3px;*/
+    border-bottom: 1px solid grey;;
+}
+
+#movements_list{
+    height: min(43.8vh, 26.7vw);
+    display: table;
+}
