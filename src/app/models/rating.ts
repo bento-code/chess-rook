@@ -5,7 +5,7 @@ export class Rating {
     public blitzMaxRating:number;
     public rapidActualRating:number;
     public rapidMaxRating:number;
-    constructor(bulletActualRating:number, bulletMaxRating:number, blitzActualRating:number, blitzMaxRating:number, rapidActualRating:number, rapidMaxRating:number)
+    constructor(bulletActualRating:number=-1, bulletMaxRating:number=-1, blitzActualRating:number=-1, blitzMaxRating:number=-1, rapidActualRating:number=-1, rapidMaxRating:number=-1)
     {
         this.bulletActualRating=bulletActualRating;
         this.bulletMaxRating=bulletMaxRating;

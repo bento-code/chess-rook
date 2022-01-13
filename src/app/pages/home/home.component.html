@@ -6,11 +6,14 @@
             <div id="content">
                 <app-navbar></app-navbar>
                 <section id="data" class="container">
-                    <div class="row justify-content-center align-items-center" id="header">
-                        <p id="header_text">{{user.username}}</p>
-                    </div>
-                    <div class="row" id=data_container>
-                        <div id="rating" class="col-6 data_section">
+                    <article class="child user">
+                        <div class="_9vh _header">
+                            <div class="d-flex justify-content-center align-items-center" id="username">
+                                <a id="username_text">{{user.username}}</a>
+                            </div>
+                        </div>
+
+                        <div id="rating">
                             <div class="d-flex justify-content-center">
                                 <p class="rating_title rating_vertical_line col-4">Bullet</p>
                                 <p class="rating_title rating_vertical_line col-4">Blitz</p>
@@ -52,65 +55,155 @@
                             </div>
 
                         </div>
-                        <div id="user" class="col-6 data_section">
-                            <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="container-fluid justify-content-center align-items-center pt-3 pb-3">
+                    </article>
 
-                                <div class="form-row row justify-content-center align-items-stretch">
-                                    <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
-                                        <label for="_name" class="col-6">Name:</label>
-                                        <input type="text" name="_name" class="form-control col-6" [(ngModel)]="user.name" #_name="ngModel" placeholder="name..." 
-                                        [ngClass]="{'is-invalid': _name.invalid}" _name required>                    
-                                    </div>
-                                </div>
-            
-                                <div class="form-row row justify-content-center align-items-stretch">
-                                    <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
-                                        <label for="_name" class="col-6">Surname:</label>
-                                        <input type="text" name="surname" class="form-control col-6" [(ngModel)]="user.surname"  #surname="ngModel" placeholder="surname..." 
-                                        [ngClass]="{'is-invalid': surname.invalid}" surname required>                    
-                                    </div>
-                                </div>
-                
-                                
-            
-                                <div class="form-row row justify-content-center align-items-stretch">
-                                    <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
-                                        <label for="_name" class="col-6">Email:</label>
-                                        <input type="email" name="email" class="form-control col-6" [(ngModel)]="user.email" #email="ngModel" placeholder="email..." 
-                                        [ngClass]="{'is-invalid': email.invalid}" email required>                    
-                                    </div>
-                                </div>
-
-                                <div class="form-row row justify-content-center align-items-stretch">              
-                                    <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
-                                        <label for="_name" class="col-6">New Password:</label>
-                                        <input type="password" name="new_password" class="form-control col-6" [(ngModel)]="user.password" #new_password="ngModel" placeholder="new password..." 
-                                        [ngClass]="{'is-invalid': new_password.invalid}" new_password required>
-                                    </div>
-                                </div>
-
-                                <div class="form-row row justify-content-center align-items-stretch">              
-                                    <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
-                                        <label for="_name" class="col-6">Actual Password:</label>
-                                        <input type="password" name="actual_password" class="form-control col-6" [(ngModel)]="user.password" #actual_password="ngModel" placeholder="actual password..." 
-                                        [ngClass]="{'is-invalid': actual_password.invalid}" actual_password required>
-                                    </div>
-                                </div>
-
-                                
-                
-                                <div class="form-row row justify-content-center align-items-center flex-fill">
-                                    <div class="form_field form-group justify-content-center align-items-center flex-fill">
-                                        <button class="btn btn-primary darkblue" [disabled]="!(userForm.valid)">
-                                            Update Data
-                                        </button>
-                                    </div>
-                                </div>
-                            
-                            </form>
+                    <article class="child new_challenge">
+                        <div class=" _6vh _header">
+                            New Challenge
                         </div>
-                    </div>
 
+
+                        <div id="search_params" class=" d-flex flex-column justify-content-top">
+
+                            <div id="search_user_bar" class="d-flex flex-row justify-content-center">
+                                <div id="target_user" class=" justify-content-center align-items-center col-10 d-flex">
+                                    <input type="" id="target_user_input" name="username" class="form-control" [(ngModel)]="targetUser" #username="ngModel" placeholder="challenge user..."> 
+                                    <img id="search_icon" src="./assets/images/lupa.png">             
+                                </div>
+                                <div class=" justify-content-center align-items-center col-2 d-flex">
+                                    <input class="col-3 col-offset-3" type="checkbox"
+                                    [checked]="targetAllUsers"
+                                    (change)="targetAllUsers = !targetAllUsers" 
+                                    [(ngModel)]=targetAllUsers>
+                                    <p class="text-white col-offset-1 col-5 text_center">All</p>             
+                                </div>
+                            </div>
+
+                            <div id="rating_params" class="d-flex flex-row justify-content-end">
+                                <div class="col-2 d-flex flex-row justify-content-left align-items-center">
+                                    <div class=" col-2 col-offset-2 justify-content-center">
+                                        <select name="minRating" [(ngModel)]="minRatingTarget">
+                                            <option *ngFor="let rating of minRatingsList" [ngValue]="rating">
+                                                {{ rating }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3 d-flex flex-row justify-content-left align-items-center">
+                                    <select name="maxRating" [(ngModel)]="maxRatingTarget">
+                                        <option *ngFor="let rating of maxRatingsList" [ngValue]="rating">
+                                            +{{rating}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <section id="time_selection_container" class="container">
+                            <div id="time_selection" class="container">
+                                <article class="child_time time_1">
+                                    1+0
+                                </article>
+                                <article class="child_time time_2">3+0</article>
+                                <article class="child_time time_3">3+2</article>
+                                <article class="child_time time_4">10+0</article>
+                                <article class="child_time time_5">15+5</article>
+                                <article class="child_time time_6">25+10</article>
+                            </div>
+                        </section>
+                    </article>
+
+                    <article class="child challenges_recieved">
+                        <div class="_6vh _header">                           
+                            Challenges Recieved
+                        </div>
+                        <div id="challenges_recieved" class=" d-flex flex-column justify-content-top challenges_section">
+                            <div id="challenges_recieved_titles" class="d-flex flex-row justify-content-center challenges_titles">
+                                <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Username
+                                </div>
+                                <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Rating
+                                </div>
+                                <div class="col-6 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Time Control
+                                </div>
+                            </div>
+                            <div id="challenges_recieved_list" class="challenges_container">
+                                <ng-container id="challenges_recieved_container"  *ngFor="let challenge of challengesRecieved; let i=index">
+                                    <div class="d-flex flex-row justify-content-center challenge_item">
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.user.username}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.usedRatingToString()}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.time.toString()}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left">
+                                            <ng-container *ngIf="challengesRecieved[i].status=='pending';else status">
+                                                <p class="challenge_field challenge_status_link"><a href="#">Accept</a>/<a href="#">Decline</a></p>
+                                            </ng-container>
+                                            <ng-template #status>
+                                                {{challengesRecieved[i].status}}
+                                            </ng-template>
+                                            
+                                        </div>
+
+
+                                        
+
+                                    </div>
+                                </ng-container>
+                            </div>       
+                        </div>
+                    </article>
+
+                    <article class="child challenges_sent">
+                        <div class="_6vh _header">                           
+                            Challenges Sent
+                        </div>
+                        <div id="challenges_sent" class=" d-flex flex-column justify-content-top challenges_section">
+                            <div id="challenges_sent_titles" class="d-flex flex-row justify-content-center challenges_titles">
+                                <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Username
+                                </div>
+                                <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Rating
+                                </div>
+                                <div class="col-6 d-flex flex-column justify-content-center align-items-left challenge_title">
+                                    Time Control
+                                </div>
+                            </div>
+                            <div id="challenges_sent_list" class="challenges_container">
+                                <ng-container id="challenges_sent_container"  *ngFor="let challenge of challengesSent; let i=index">
+                                    <div class="d-flex flex-row justify-content-center challenge_item">
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.user.username}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.usedRatingToString()}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.time.toString()}}
+                                        </div>
+
+                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challengesSent[i].status}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>       
+                        </div>
+                    </article>
                 </section>
             </div>
         </div>

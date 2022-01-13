@@ -11,21 +11,21 @@
                 <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="container-fluid justify-content-center align-items-center pt-3 pb-3">
                     <div class="form-row row justify-content-center align-items-center">
                         <div class="form_field form-group justify-content-center align-items-center">
-                            <input type="text" name="username" class="form-control" [(ngModel)]="loginData.username" #username="ngModel" placeholder="username..." 
+                            <input type="text" name="username" autocomplete="on" class="form-control" [(ngModel)]="loginData.username" #username="ngModel" placeholder="username..." 
                             [ngClass]="{'is-invalid': username.invalid}" username required>                    
                         </div>
                     </div>
     
                     <div class="form-row row justify-content-center align-items-center">              
                         <div class="form_field form-group justify-content-center align-items-center">
-                            <input type="password" name="password" class="form-control" [(ngModel)]="loginData.password" #password="ngModel" placeholder="password..." 
+                            <input type="password" name="password" autocomplete="on" class="form-control" [(ngModel)]="loginData.password" #password="ngModel" placeholder="password..." 
                             [ngClass]="{'is-invalid': password.invalid}" password required>
                         </div>
                     </div>
     
                     <div class="form-row row justify-content-center align-items-center">
                         <div class="form_field form-group justify-content-center align-items-center">
-                            <button [routerLink]="'/app-home'" class="btn btn-primary darkblue" [disabled]="!(loginForm.valid)">
+                            <button  class="btn btn-primary darkblue" [disabled]="!(loginForm.valid)">
                                 Login
                             </button>
                         </div>

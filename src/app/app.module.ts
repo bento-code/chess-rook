@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { NgxChessBoardModule } from "ngx-chess-board";
 import { NgxChessBoardView } from "ngx-chess-board";
+import {AuthInterceptor} from "./models/auth-interceptor";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 //import { NgxChessBoardService } from "ngx-chess-board";
 
 @NgModule({
@@ -38,9 +41,16 @@ import { NgxChessBoardView } from "ngx-chess-board";
     FormsModule,
     ReactiveFormsModule,
     NgxChessBoardModule.forRoot(),
+    HttpClientModule
     //NgxChessBoardService
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor, 
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

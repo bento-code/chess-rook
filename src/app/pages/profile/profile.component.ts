@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Rating } from 'src/app/models/rating';
+import { LocalUser } from 'src/app/models/local-user';
+import { UserService } from 'src/app/shared/user.service';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -10,9 +12,20 @@ import { User } from 'src/app/models/user';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() 
+
+    
+
+
+
+  constructor(private userService: UserService) 
   { 
-    this.user=new User("BentoCode","1234","testmail@tm.com","Pablo","Bento",new Rating(2001,2100,2134,2200,1800,1973));
+    this.userService.getLocalUser(localStorage['username'])
+    .then((user:LocalUser)=>
+    {
+      this.user=user;
+    })
+    
+    
   }
 
   public onSubmit=(form:NgForm)=>
@@ -27,6 +40,6 @@ export class ProfileComponent implements OnInit {
     //console.log(this.user);
   }
 
-  public user:User;
+  public user:LocalUser;
 }
 

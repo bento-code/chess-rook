@@ -1,6 +1,32 @@
-/*{
-    margin:0;
-}*/
+:root{
+
+    --blue2:rgb(62, 114, 166);
+
+
+
+
+    --white1: rgba(255, 255, 255);
+    --grey1: rgba(250, 250, 250);
+    --test1: rgba(0, 204, 255, 0.25);
+    --loginButtonColorEnabled: #0095f6;
+    --loginButtonColorDisabled: rgba(0,149,246,0.3);
+    --greyBorder: rgb(158, 158, 158);
+    --blue1:rgb(0,137,198);
+ 
+
+    --maxSize:min(490px, 100vw - 50px);
+    --scale:(var(--maxSize) / 490px);
+    --gapFactor:min(1, var(--scale));
+    --factor:0.30612;
+    --margin10:1.010204%;
+    --margin20:2.020408%;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
 
 
 #main_container{
@@ -29,16 +55,96 @@
 
 #data
 {
+
+    display: grid;
+
+    grid-template-columns:[left] 45% [centerL] 10% [centerR] 45% [right];
+    grid-template-rows:[top] 53.5% [middleT] 6.5% [middleB] 40% [bottom];
+
     position:absolute;
-    top:16vh;
-    left:9vw;
-    min-width: 82vw;
-    max-width: 82vw;
-    min-height: 74vh;
-    max-height:74vh;
-    background-color: aqua;
-    border-radius: max(2vw , 16px);
+    top:13.5vh;
+    left:6vw;
+    min-width: 88vw;
+    max-width: 88vw;
+    min-height: 83vh;
+    max-height:83vh;
 }
+
+.child{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-top;
+    background-color: #0A131E;
+    border-radius: max(0.5vw , 4px);
+}
+
+.user{
+    grid-row: top / middleT;
+    grid-column: left / centerL;
+}
+.new_challenge{
+    grid-row: top / middleT;
+    grid-column: centerR / right;
+}
+
+.challenges_sent{
+    grid-row: middleB / bottom;
+    grid-column: centerR / right;
+}
+
+.challenges_recieved{
+    grid-row: middleB / bottom;
+    grid-column: left / centerL;
+}
+
+._header{
+    color:white;
+    background-color: rgb(62, 114, 166);
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: max(0.5vw , 4px) max(0.5vw , 4px) 0 0;
+}
+
+._small{
+    min-height:13%;
+    height:13%;
+    
+}
+
+._5vh{
+    min-height:5vh;
+    height:5vh;
+}
+
+._6vh{
+    min-height:6vh;
+    height:6vh;
+}
+
+._7vh{
+    min-height:7vh;
+    height:7vh;
+}
+
+._8vh{
+    min-height:8vh;
+    height:8vh;
+}
+
+._9vh{
+    min-height:9vh;
+    height:9vh;
+}
+
+._10vh{
+    min-height:10vh;
+    height:10vh;
+}
+
+
+
 
 .rating_vertical_line{
     border-right: rgba(0, 0, 0, 0.2) 1px solid;
@@ -70,22 +176,23 @@
 }
 
 .data_section{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: rgb(255, 0, 0);
-    min-width: 50%;
-    max-width: 50%;
-    min-height: 64vh;
-    max-height: 64vh;
+    
 
 }
 
 #rating{
-    background-color:#283645;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgb(255, 0, 0);
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 36vh;
+    max-height: 36vh;
+    background-color: rgb(162, 196, 224);
     text-align: center;
     padding:0;
-    border-radius: 0 0 0 max(1vw , 8px);
+    border-radius: 0 0 max(0.5vw , 4px) max(0.5vw , 4px);
 }
 #user{
     background-color:#0A131E;
@@ -118,10 +225,9 @@ label{
 .rating_title{
     font-weight:bold;
     font-size: 2.5vw;
-    color:white;
     text-align: center;
     margin:0;
-    padding-top:1vh
+    color:rgb(255, 255, 255);
 }
 
 .rating_category{
@@ -169,4 +275,175 @@ button{
 
 .form-group{
     margin-bottom: 3.5vh;
+    
+}
+
+
+#username{
+    border-radius: max(1vw , 8px) max(1vw , 8px) 0 0;
+    /*max-height: 10vh;
+    min-height: 10vh;*/
+    background-color: #3E72A6;
+    color:white;
+    font-size:max(3vh, 2.5vw);
+    text-align:center;
+}
+#username_text{
+    margin-bottom: 0.1vh;
+}
+
+.challenges_titles
+{
+    margin-left: 1vw;
+    margin-top: 1vh;
+    margin-right: 1vw;
+    border-radius: 4px;
+    height: 4vh;
+    min-height: 4vh;
+    background-color: white;
+
+
+}
+
+.challenges_section{
+    display:block;
+    overflow: hidden;
+}
+
+.challenges_container{
+    overflow-y: auto;
+    padding-bottom:1vh;
+}
+
+.challenges_container::-webkit-scrollbar {
+    display: none;
+}
+
+.challenge_title
+{
+    font-size: 1.3vw;
+
+    padding-left: 0.5vw;
+}
+
+
+
+.challenge_item{
+    margin-left: 1vw;
+    margin-top: 1vh;
+    margin-right: 1vw;
+    border-radius: 4px;
+    height: 3vh;
+    min-height: 3vh;
+    background-color: white;
+}
+
+.challenge_field
+{
+    font-size: 1vw;
+
+    padding-left: 0.5vw;
+}
+
+.challenge_status_link{
+    font-size: 1vw;
+}
+
+
+
+.text_center{
+    text-align:center;
+}
+
+#target_user{
+    background-color: white;
+    padding-right: 0.5vw;
+}
+
+#target_user_input{
+    background-color: white;
+    padding-left: 1vw;
+    font-size: 1.2vw;
+    
+}
+
+#search_icon{
+    height: max(3vh , 2vw);
+    min-height: max(3vh , 2vw);
+    width: max(3vh , 2vw);
+    min-width: max(3vh , 2vw);
+}
+
+#search_params{
+    margin-top: 1.5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1.5vh;
+}
+
+#rating_params{
+    margin-top:1vh;
+    margin-bottom:1vh;
+}
+
+#time_selection_container
+{
+    position:relative;
+    margin-left:1vw;
+    height: 23vh;
+    width: 37.5vw;
+}
+
+#time_selection
+{
+
+    display: grid;
+
+    grid-template-columns:[leftL] 30% [leftR] 5% [centerL] 30% [centerR] 5% [rightL] 30% [rightR];
+    grid-template-rows:[top] 47.25% [middleT] 7.5% [middleB] 47.25% [bottom];
+
+    position:absolute;
+    top:0;
+    left:0;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height:100%;
+}
+
+.child_time{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align:center;
+    color:white;
+    font-size:3vw;
+    background-color: rgb(162, 196, 224);
+    border-radius: max(0.25vw , 2px);
+    font-weight: bold;
+}
+
+.time_1{
+    grid-row: top / middleT;
+    grid-column: leftL / leftR;
+}
+.time_2{
+    grid-row: top / middleT;
+    grid-column: centerL / centerR;
+}
+.time_3{
+    grid-row: top / middleT;
+    grid-column: rightL / rightR;
+}
+.time_4{
+    grid-row: middleB / bottom;
+    grid-column: leftL / leftR;
+}
+.time_5{
+    grid-row: middleB / bottom;
+    grid-column: centerL / centerR;
+}
+.time_6{
+    grid-row: middleB / bottom;
+    grid-column: rightL / rightR;
 }
