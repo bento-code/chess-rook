@@ -13,10 +13,6 @@ import { User } from 'src/app/models/user';
 export class ProfileComponent implements OnInit {
 
 
-    
-
-
-
   constructor(private userService: UserService) 
   { 
     this.userService.getLocalUser(localStorage['username'])
