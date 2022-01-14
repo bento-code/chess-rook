@@ -6,6 +6,8 @@ import { Challenge } from 'src/app/models/challenge';
 import { User } from 'src/app/models/user';
 import { GameTime } from 'src/app/models/game-time';
 import {UserService} from 'src/app/shared/user.service';
+import { SocketService } from 'src/app/shared/socket.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -32,10 +34,14 @@ export class HomeComponent implements OnInit {
   public maxRatingTarget=25;
   public maxRatingsList=[25,50,100, 150, 200, 250, 300, 350, 400, 450, 500];
 
-  constructor(private userService: UserService) 
+  private testsSub:Subscription;
+  public tests:string[];
+
+  constructor(private userService: UserService, private socketService: SocketService) 
   { 
 
     //this.user=new User("BentoCode",new Rating(2001,2100,2134,2200,1800,1973));
+    this.testsSub = this.socketService.tests.subscribe(data => this.tests = data);
 
     this.userService.getUser(localStorage['username'])
     .then((user:User)=>
@@ -72,12 +78,33 @@ export class HomeComponent implements OnInit {
     this.challengesRecieved.push(new Challenge(this.activeUsers[3], new GameTime(0,3,0,2),"pending", "recieved"));
 
     this.challengesSent.push(new Challenge(new User("marcos3", new Rating(1343, 1450, 1213, 1459, 1034, 1356)), new GameTime(0,10,0,0),"pending", "sent"));
-    this.challengesSent.push(new Challenge(new User("marcos4", new Rating(1643, 1750, 1313, 1459, 1134, 1656)), new GameTime(0,3,0,0),"pending", "sent"));
-    this.challengesSent.push(new Challenge(new User("marcos5", new Rating(1743, 1850, 1413, 1559, 1234, 1556)), new GameTime(0,1,0,0),"pending", "sent"));
-    this.challengesSent.push(new Challenge(new User("*", new Rating(-1, -1, -150, 200, -1, -1)), new GameTime(0,3,0,2),"searching...", "sent"));
+    
+  }
 
+
+  public timeControlsStrings=["1+0","3+0","3+2","10+0","15+5","25+10"];
+  public timeControls=[new GameTime(0,1,0,0), new GameTime(0,3,0,0), new GameTime(0,3,0,2), new GameTime(0,10,0,0), new GameTime(0,15,0,5), new GameTime(0,25,0,10)]
+  public selected=[false, false, false, false, false, false]
+
+
+  public newChallenge(timeControl:number) 
+  {
+    let challengeAlreadyExists=this.challengesSent.filter(challenge => challenge.user.username === "*").length!=0;
+    if(this.targetAllUsers)
+    {
+      if(!challengeAlreadyExists)
+        this.challengesSent.push(new Challenge(new User("*", new Rating(this.minRatingTarget, this.maxRatingTarget, this.minRatingTarget, this.maxRatingTarget, this.minRatingTarget, this.maxRatingTarget)), this.timeControls[timeControl],"searching...", "sent"));
+      else
+        alert(`Already searching for a game!`);
+    }
+    else
+    {
+      this.challengesSent.push(new Challenge(new User(this.targetUser, new Rating(1000, 1100, 1200, 1300, 1400, 1500)), this.timeControls[timeControl],"searching...", "sent"));
+    }
     
 
+    /*alert(`${this.timeControls[timeControl]}
+    ${this.targetAllUsers}`);*/
   }
 
   public onSubmit=(form:NgForm)=>

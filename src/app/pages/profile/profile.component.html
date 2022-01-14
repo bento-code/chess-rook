@@ -84,15 +84,15 @@
                                 <div class="form-row row justify-content-center align-items-stretch">              
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">New Password:</label>
-                                        <input type="password" name="new_password" class="form-control col-6" [(ngModel)]="user.password" #new_password="ngModel" placeholder="new password..." 
-                                        [ngClass]="{'is-invalid': new_password.invalid}" new_password required>
+                                        <input type="password" name="new_password" class="form-control col-6" [(ngModel)]="newPassword" #new_password="ngModel" placeholder="********" 
+                                        [ngClass]="{'is-invalid': new_password.invalid}" new_password>
                                     </div>
                                 </div>
 
-                                <div class="form-row row justify-content-center align-items-stretch">              
+                                <div class="form-row row justify-content-center align-items-stretch">               
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">Actual Password:</label>
-                                        <input type="password" name="actual_password" class="form-control col-6" [(ngModel)]="user.password" #actual_password="ngModel" placeholder="actual password..." 
+                                        <input type="password" name="actual_password" class="form-control col-6" [(ngModel)]="actualPassword" #actual_password="ngModel" placeholder="********" 
                                         [ngClass]="{'is-invalid': actual_password.invalid}" actual_password required>
                                     </div>
                                 </div>

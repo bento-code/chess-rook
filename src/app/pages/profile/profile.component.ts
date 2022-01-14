@@ -37,5 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public user:LocalUser;
+  public actualPassword:string="";
+  public newPassword:string="";
 }
 

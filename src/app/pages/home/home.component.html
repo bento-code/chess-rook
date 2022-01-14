@@ -66,31 +66,31 @@
                         <div id="search_params" class=" d-flex flex-column justify-content-top">
 
                             <div id="search_user_bar" class="d-flex flex-row justify-content-center">
-                                <div id="target_user" class=" justify-content-center align-items-center col-10 d-flex">
+                                <div id="target_user" class=" justify-content-center align-items-center col-10 d-flex rounded_border_m">
                                     <input type="" id="target_user_input" name="username" class="form-control" [(ngModel)]="targetUser" #username="ngModel" placeholder="challenge user..."> 
                                     <img id="search_icon" src="./assets/images/lupa.png">             
                                 </div>
                                 <div class=" justify-content-center align-items-center col-2 d-flex">
                                     <input class="col-3 col-offset-3" type="checkbox"
-                                    [checked]="targetAllUsers"
-                                    (change)="targetAllUsers = !targetAllUsers" 
-                                    [(ngModel)]=targetAllUsers>
+                                        [checked]="targetAllUsers"
+                                        (change)="targetAllUsers = !targetAllUsers" >
                                     <p class="text-white col-offset-1 col-5 text_center">All</p>             
                                 </div>
                             </div>
 
                             <div id="rating_params" class="d-flex flex-row justify-content-end">
-                                <div class="col-2 d-flex flex-row justify-content-left align-items-center">
-                                    <div class=" col-2 col-offset-2 justify-content-center">
-                                        <select name="minRating" [(ngModel)]="minRatingTarget">
-                                            <option *ngFor="let rating of minRatingsList" [ngValue]="rating">
-                                                {{ rating }}
-                                            </option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-2 col-lg-3 d-flex flex-row justify-content-center align-items-center">
+                                    <p id="max_diff_text">Max diff:</p>
                                 </div>
-                                <div class="col-3 d-flex flex-row justify-content-left align-items-center">
-                                    <select name="maxRating" [(ngModel)]="maxRatingTarget">
+                                <div class="col-4 col-xl-2 col-lg-3 d-flex flex-row justify-content-end align-items-center">
+                                    <select id="min_selector" name="minRating" [(ngModel)]="minRatingTarget" class="rounded_border_m">
+                                        <option *ngFor="let rating of minRatingsList" [ngValue]="rating">
+                                            {{ rating }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-4 col-xl-2 col-lg-3 d-flex flex-row justify-content-end align-items-center">
+                                    <select id="max_selector" name="maxRating" [(ngModel)]="maxRatingTarget" class="rounded_border_m">
                                         <option *ngFor="let rating of maxRatingsList" [ngValue]="rating">
                                             +{{rating}}
                                         </option>
@@ -103,14 +103,12 @@
 
                         <section id="time_selection_container" class="container">
                             <div id="time_selection" class="container">
-                                <article class="child_time time_1">
-                                    1+0
-                                </article>
-                                <article class="child_time time_2">3+0</article>
-                                <article class="child_time time_3">3+2</article>
-                                <article class="child_time time_4">10+0</article>
-                                <article class="child_time time_5">15+5</article>
-                                <article class="child_time time_6">25+10</article>
+                                <article class="child_time time_1" (click)="newChallenge(0)" (mouseover)="selected[0]=true" (mouseout)="selected[0]=false" [ngClass]="selected[0] ? 'time_hover' : ''">1+0</article>
+                                <article class="child_time time_2" (click)="newChallenge(1)" (mouseover)="selected[1]=true" (mouseout)="selected[1]=false" [ngClass]="selected[1] ? 'time_hover' : ''">3+0</article>
+                                <article class="child_time time_3" (click)="newChallenge(2)" (mouseover)="selected[2]=true" (mouseout)="selected[2]=false" [ngClass]="selected[2] ? 'time_hover' : ''">3+2</article>
+                                <article class="child_time time_4" (click)="newChallenge(3)" (mouseover)="selected[3]=true" (mouseout)="selected[3]=false" [ngClass]="selected[3] ? 'time_hover' : ''">10+0</article>
+                                <article class="child_time time_5" (click)="newChallenge(4)" (mouseover)="selected[4]=true" (mouseout)="selected[4]=false" [ngClass]="selected[4] ? 'time_hover' : ''">15+5</article>
+                                <article class="child_time time_6" (click)="newChallenge(5)" (mouseover)="selected[5]=true" (mouseout)="selected[5]=false" [ngClass]="selected[5] ? 'time_hover' : ''">25+10</article>
                             </div>
                         </section>
                     </article>
@@ -155,10 +153,6 @@
                                             </ng-template>
                                             
                                         </div>
-
-
-                                        
-
                                     </div>
                                 </ng-container>
                             </div>       
