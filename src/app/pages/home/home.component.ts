@@ -37,11 +37,11 @@ export class HomeComponent implements OnInit {
   private testsSub:Subscription;
   public tests:string[];
 
-  constructor(private userService: UserService, private socketService: SocketService) 
+  constructor(private userService: UserService)//, private socketService: SocketService) 
   { 
 
     //this.user=new User("BentoCode",new Rating(2001,2100,2134,2200,1800,1973));
-    this.testsSub = this.socketService.tests.subscribe(data => this.tests = data);
+    //this.testsSub = this.socketService.tests.subscribe(data => this.tests = data);
 
     this.userService.getUser(localStorage['username'])
     .then((user:User)=>
