@@ -1,0 +1,37 @@
+<body>
+    <section id="data" class="">
+        <div id="result" class="container-fluid" [ngClass]="getClassByResult()">
+            <p id="result_text">
+                {{getWinnerText()}}
+            </p>
+        </div>
+        <div class="container">
+            <div class="row game_over_info">
+                <div class="col-4 info">
+                    <p class="username space_m">{{gameOverInfo.whiteUsername}}</p>
+                    <p class="new_rating space_s">New rating:</p>
+                    <div class="row d-flex justify-content-between space_m">
+                        <p class="rating col-8">{{gameOverInfo.whiteNewRating}}</p>
+                        <p class="variation col-4" [ngClass]=getClassByVariation(true)>{{getPrintableWhiteVariation()}}</p>
+                    </div>
+                    
+                </div>
+                <div class="col-4 result_container">
+                    <p class="result_value">{{getPrintableResult()}}</p>
+                    <div (click)="goHome()" (mouseover)="hoverButton=true" (mouseout)="hoverButton=false" [ngClass]="hoverButton ? 'button_hover' : ''" class="button">
+                        <p id="button_text">Home</p>
+                    </div>
+                </div>
+                <div class="col-4 info">
+                    <p class="username space_m">{{gameOverInfo.blackUsername}}</p>
+                    <p class="new_rating space_s">New rating:</p>
+                    <div class="row space">
+                        <p class="rating col-8">{{gameOverInfo.blackNewRating}}</p>
+                        <p class="variation col-4" [ngClass]=getClassByVariation(false)>{{getPrintableBlackVariation()}}</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+</body>

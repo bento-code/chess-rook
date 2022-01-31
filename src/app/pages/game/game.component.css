@@ -1,3 +1,28 @@
+::ng-deep :root 
+{
+    
+    --gridVw:100vw;
+    /*--gridVh:83vh;*/
+    --gridVh: min(calc(var(--gridVw) * 0.43) , 83vh)
+    /*--gridVh:calc(var(--gridVw) * 0.43);*/
+    --first-color: #16f;
+    --second-color: #ff7;
+  
+}
+
+#boardConfig
+{
+    /*min-width: var(--gridVh);
+    min-height: var(--gridVh);
+    max-width: var(--gridVh);
+    max-height: var(--gridVh);*/
+    /*min-width:400px;
+    min-height:400px;
+    max-width:400px;
+    max-height:400px;*/
+}
+  
+
 #main_container{
     min-width: 100vw;
     min-height: 100vh;
@@ -26,27 +51,151 @@
     margin-top: 10vh;
 }
 
+
+
+
+#data
+{
+
+    display: grid;
+
+    grid-template-columns:[left1] min(calc(100vw * 0.43) , 83vh) [left2] 2% [center1] 23% [center2] 2% [right1] 23% [right2];
+    grid-template-rows:[top1] 13% [top2] 3% [middle1] 13% [middle2] 0% [middle3] 11% [middle4] 5% [bottom1] 55% [bottom2];
+
+    position:absolute;
+    top:13.5vh;
+    left:3vw;
+    min-width: var(--gridVw);
+    max-width: var(--gridVw);
+    min-height: var(--gridVh);
+    max-height:var(--gridVh);
+
+
+    /*top:13.5vh;
+    left:6vw;
+    min-width: 88vw;
+    max-width: 88vw;
+    min-height: 83vh;
+    max-height:83vh;*/
+}
+
+/*.child{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-top;
+    background-color: #0A131E;
+    border-radius: max(0.5vw , 4px);
+}*/
+
+.board1{
+    grid-row: top1 / bottom2;
+    grid-column: left1 / left2;
+}
+.clock1{
+    grid-row: top1 / top2;
+    grid-column: center1 / center2;
+}
+
+.clock2{
+    grid-row: middle1 / middle2;
+    grid-column: center1 / center2;
+}
+
+.user1{
+    grid-row: top1 / top2;
+    grid-column: right1 / right2;
+}
+
+.user2{
+    grid-row: middle1 / middle2;
+    grid-column: right1 / right2;
+}
+
+.action1{
+    grid-row: middle3 / middle4;
+    grid-column: center1 / center2;
+}
+
+.action2{
+    grid-row: middle3 / middle4;
+    grid-column: right1 / right2;
+}
+
+.moves1{
+    grid-row: middle4 / bottom2;
+    grid-column: center1 / right2;
+}
+
+
+
+
+
+
 #board_container{
     
 }
+.action{
+    /*margin-top:1vh; --now*/
+    /*border:3px solid;*/
+    /*margin-left:10%;
+    margin-right:10%;--now*/
+    width:100%;
+    text-align: center;
 
-#moves_container{
-    overflow:auto;
 }
 
+#offerDraw{
+    
+}
+
+#resign{
+    
+}
+
+.draw_hover
+{
+    border:3px solid yellow;
+    background-color: rgb(252, 255, 88);
+    cursor: pointer;
+}
+.resign_hover
+{
+    border:3px solid red;
+    background-color: rgb(255, 88, 88);
+
+    cursor: pointer;
+}
+
+.draw_default
+{
+    background-color: rgb(253, 255, 140);
+}
+.resign_default
+{
+    background-color: rgb(255, 140, 140);
+}
+
+ #moves_container{
+    overflow-y: auto;
+    padding-bottom:1vh;
+}
+
+#moves_container::-webkit-scrollbar {
+    display: none;
+}
 #game_content
 {
     /*width: 50vw; 
     height: 50vw; */
-    margin-top: 2.5vh;
-    margin-left: 2.8vw;
-    width: 94vw; 
-    max-height: 90vh;
+    /*margin-top: 2.5vh;
+    margin-left: 2.8vw;--now*/
+    /*width: 94vw; 
+    max-height: 90vh;--now*/
 }
 
 #movements{
     background-color: white;
-    margin-top: 3.5vh;
+    /*margin-top: 1vh;--now*/
     /*overflow: auto;*/
 }
 
@@ -61,38 +210,40 @@
 
 #game_data{
     /*background-color: rgb(187, 255, 229);*/
-    width: max(calc(100vw - 82vh), 50vw);
-    margin-left: 3.5vw;
-    max-height:min(0.82vh , 0.5vw);
-    height:min(0.82vh , 0.5vw);
+    /*width: max(calc(100vw - 82vh), 50vw);--now*/
+    /*margin-left: 3.5vw;--now*/
+    /*max-height:min(0.82vh , 0.5vw);
+    height:min(0.82vh , 0.5vw);--now*/
 }
 
 #game_data_container{
     /*background-color: rgb(187, 255, 229);*/
-    max-height:min(0.82vh , 0.5vw);
-    height:min(0.82vh , 0.5vw);
+    /*max-height:min(0.82vh , 0.5vw);
+    height:min(0.82vh , 0.5vw);--now*/
     display:block;
 }
 
 .data_section{
     padding:0;
 }
-#clock{
+/*#clock{
     padding-right: 1vw;
 }
 #players{
     padding-left: 1vw;
-}
+}*/
 
 .data_field{
     /*width: 40%;
     height: 20%;*/
     background-color: grey;
     text-align: center;
-    height: min(8.5vh, 8vw);
-    min-height: min(8.5vh, 8vw);
+    /*height: min(8.5vh, 8vw);
+    min-height: min(8.5vh, 8vw);--now --testing*/
+    height: 100%;
+    min-height: 100%;
     width: 100%;
-    margin-bottom:3.5vh;
+    /*margin-bottom:min(3.5vh, 3vw);--now*/
     margin-left: 0;
 }
 
@@ -112,17 +263,19 @@
     background-color: rgb(62, 114, 166);
     color:black;
     text-align: center;
+    font-size: 1.5vw;
 }
 
 .moves_titles{
-    height: 8vh;
+    height: 2vw;
 }
 
 .moves_title{
     background-color: rgb(162, 196, 224);
     color:black;
     text-align: center;
-    height: 8vh;
+    height: 2vw;
+    font-size: 1vw;
 }
 
 .move_border_left{
@@ -135,11 +288,34 @@
     border-bottom: 1px solid grey;;
 }
 
-#movements_list{
-    height: min(43.8vh, 26.7vw);
-    max-height: min(43.8vh, 26.7vw);
-    display: block;
-    overflow:auto;
-    flex-direction:column-reverse;
 
+
+#movements{
+    display:block;
+    overflow: hidden;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+#movements_list{
+    overflow-y: auto;
+    padding-bottom:1vh;
+}
+
+#movements_list::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+
+.challenges_container{
+    overflow-y: auto;
+    padding-bottom:1vh;
+}
+
+.challenges_container::-webkit-scrollbar {
+    display: none;
 }

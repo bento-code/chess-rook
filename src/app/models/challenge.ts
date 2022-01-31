@@ -4,56 +4,64 @@ import { User } from "./user";
 
 export class Challenge 
 {
-    public user:User;
+    public id: string;
+    public senderUser:User;
+    public receiverUser:User;
+    public minRatingTarget:number;
+    public maxRatingTarget:number;
     public time:GameTime;
     public status:string;
     public type:string;
-    constructor(user:User, time:GameTime, status:string, type:string)
+    public origin: string;
+    constructor(senderUser:User, receiverUser:User, minRatingTarget:number, maxRatingTarget:number, time:GameTime, status:string, origin:string, type:string, id:string="")
     {
+        this.id=id;
+        this.minRatingTarget=minRatingTarget;
+        this.maxRatingTarget=maxRatingTarget;
         this.time=time;
-        this.user=user;
+        this.senderUser=senderUser;
+        this.receiverUser=receiverUser;
         this.status=status;
+        this.origin=origin;
         this.type=type;
     }
 
     public usedRatingByTime = ():number =>
     {
-        if(!(this.user.rating.bulletActualRating<0||this.user.rating.blitzActualRating<0||this.user.rating.rapidActualRating<0))
-        {
-            if(this.time.minutes<3)
-                return this.user.rating.bulletActualRating;
-            else if(this.time.minutes<10)
-                return this.user.rating.blitzActualRating;
+        console.log("rating");
+            if(this.origin=="received")
+            {
+                if(this.time.minutes<3)
+                    return this.senderUser.rating.bulletActualRating;
+                else if(this.time.minutes<10)
+                    return this.senderUser.rating.blitzActualRating;
+                else
+                    return this.senderUser.rating.rapidActualRating;
+            }
             else
-                return this.user.rating.rapidActualRating;
-        }
-        else
-        {
-            return -1;
-        }
+            {
+                if(this.time.minutes<3)
+                    return this.receiverUser.rating.bulletActualRating;
+                else if(this.time.minutes<10)
+                    return this.receiverUser.rating.blitzActualRating;
+                else
+                    return this.receiverUser.rating.rapidActualRating;
+            }
         
     }
 
     public searchRangesToString = ():string =>
     {
-        if(this.time.minutes<3)
-            return String(this.user.rating.bulletActualRating)+"/+"+String(this.user.rating.bulletMaxRating);
-        else if(this.time.minutes<10)
-            return String(this.user.rating.blitzActualRating)+"/+"+String(this.user.rating.blitzMaxRating);
-        else
-        return String(this.user.rating.rapidActualRating)+"/+"+String(this.user.rating.rapidMaxRating);
+        return String(this.minRatingTarget)+"/+"+String(this.maxRatingTarget);
     }
 
 
 
     public usedRatingToString = ():string =>
     {
-        let actualRating=this.usedRatingByTime();
-        if(actualRating!=-1)
-            return String(actualRating);
-        else
-        {
+        if((this.type=="public")&&(this.origin=="sent"))
             return this.searchRangesToString();
-        }
+        else
+            return String(this.usedRatingByTime());
     }
 }

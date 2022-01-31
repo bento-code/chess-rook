@@ -15,6 +15,9 @@ export class RegisterComponent implements OnInit {
   public onSubmit=(form:NgForm)=>
   {
     console.log("sumbit!");
+    console.log("..................");
+    console.log(this.registerData);
+    console.log("..................");
     let data=form.value;
     console.log(data);
     this.authService.signUp(this.registerData)

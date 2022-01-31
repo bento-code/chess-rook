@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit
     this.authService.login(data.username, data.password)
     .then((logged:boolean)=>
     {
-      console.log("logged???????????????????: "+logged);
+      console.log("logged?: "+logged);
       if(logged)
         this.router.navigate(['/', 'app-home']);
     })

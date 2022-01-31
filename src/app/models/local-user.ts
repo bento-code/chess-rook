@@ -8,11 +8,11 @@ export class LocalUser extends User {
     public surname:string;
     
 
-    constructor(username:string="-1", password:string="-1", email:string="-1", name:string="-1", surname:string="-1", rating:Rating=new Rating())
+    constructor(username:string="loading...", password:string="loading...", email:string="loading...", name:string="loading...", surname:string="loading...", rating:Rating=new Rating())
     {
         super(username, rating);
-        this.password=password;
-        this.username=username;
+        /*this.password=password;
+        this.username=username;*/
         this.email=email;
         this.name=name;
         this.surname=surname;

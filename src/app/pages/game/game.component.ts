@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 
+
 import { NgxChessBoardModule } from "ngx-chess-board";
 import { HostListener } from "@angular/core";
+
+import {NgbModal, ModalDismissReasons, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 const Chess:any = require('chess.js');
@@ -14,6 +17,10 @@ import { LocalUser } from 'src/app/models/local-user';
 import { Rating } from 'src/app/models/rating';
 import { CaseBlock } from 'typescript';
 import { Clock } from 'src/app/models/clock';
+import { GameService } from 'src/app/shared/game.service';
+import { Game } from 'src/app/models/game';
+import { GameOverModalComponent } from '../game-over-modal/game-over-modal.component';
+import { GameOverInfo } from 'src/app/models/game-over-info';
 
 @Component({
   selector: 'app-game',
@@ -23,18 +30,45 @@ import { Clock } from 'src/app/models/clock';
 })
 export class GameComponent implements OnInit {
 
+public selectedDraw=false;
+public selectedResign=false;
 public screenHeight=0;
 public screenWidth=0;
-public game=new Chess();
+public game:Game=this.gameService.game;
 public size=0.3*this.screenWidth;
 public lightTileColor:string="rgb(234, 233, 210)";
 public darkTileColor:string="rgb(75, 115, 153)";
 public sourcePointColor:string="rgb(46, 165, 232)";
 public destinationPointColor:string="rgb(120, 201, 237)";
 
-public white:LocalUser=new LocalUser("DefaultWhite","","","","",new Rating(1000,1100,1200,1300,1400,1500)); 
-public black:LocalUser=new LocalUser("DefaultBlack","","","","",new Rating(1050,1150,1250,1350,1450,1550));
-public clock:Clock=new Clock();
+public movements:string[][]=this.gameService.game.movements!=undefined ? this.gameService.game.movements : [];//this.gameService.game.movements;
+public listeningBoard=true;
+
+public white:any=this.gameService.game.white;
+public black:any=this.gameService.game.black;
+public clock:Clock=this.gameService.game.clock;
+
+public closeResult = '';
+
+public piecesLinks=
+{
+  whiteKingUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png",
+  whiteQueenUrl:"https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png",
+  whiteKnightUrl: "https://upload.wikimedia.org/wikipedia/commons/2/28/Chess_nlt60.png",
+  whiteRookUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Chess_rlt60.png",
+  whitePawnUrl: "https://upload.wikimedia.org/wikipedia/commons/0/04/Chess_plt60.png",
+  whiteBishopUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Chess_blt60.png",
+  
+  blackKingUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Chess_kdt60.png",
+  blackQueenUrl: "https://upload.wikimedia.org/wikipedia/commons/a/af/Chess_qdt60.png",
+  blackKnightUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Chess_ndt60.png",
+  blackRookUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Chess_rdt60.png",
+  blackPawnUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Chess_pdt60.png",
+  blackBishopUrl: "https://upload.wikimedia.org/wikipedia/commons/8/81/Chess_bdt60.png"
+}
+
+public isBlack=false;
+public drawOffered=false;
 
 
 @HostListener('window:resize', ['$event'])
@@ -51,7 +85,7 @@ getScreenSize() {
       this.screenHeight = window.innerHeight;
       this.screenWidth = window.innerWidth;
       console.log(this.screenHeight, this.screenWidth);
-      this.size=Math.min(0.82*this.screenHeight, 0.5*this.screenWidth);
+      this.size=Math.min(0.83*this.screenHeight, 0.43*this.screenWidth);
       //console.log("board: "+this.board);
       /*if(this.board!==undefined)
         this.board.move("d2d4");*/
@@ -63,6 +97,8 @@ getScreenSize() {
 
   @ViewChild('board', { static: false }) board: NgxChessBoardView;
   
+
+
   /*public start = () =>
   {
     console.log("board: "+this.board);
@@ -70,8 +106,7 @@ getScreenSize() {
     //console.log(board);
   }*/
 
-  public movements:string[][]=[];
-  public listeningBoard=true;
+
 
   /*ngAfterViewInit() 
   {
@@ -91,10 +126,8 @@ getScreenSize() {
     this.game.move('O-O');
     this.game.move('O-O');
    
-
     let movementList=this.game.history();
     console.log(movementList)
-
     for(let i=0; i<movementList.length;i++)
     {
       console.log(movementList[i])
@@ -109,52 +142,108 @@ getScreenSize() {
         this.movements[n].push(movementList[i]);
       }
     }
-
     console.log(this.movements)
   }*/
 
+  showGameOver(gameOverInfo: GameOverInfo=new GameOverInfo()) {
+    const modalRef = this.modalService.open(GameOverModalComponent, { centered: true, size: 'lg' });
+    modalRef.componentInstance.gameOverInfo=gameOverInfo;
+    modalRef.componentInstance.modalRef=modalRef;
+  }
+
   public boardLoad:boolean=false;
 
-  constructor()//private ngxChessBoardService: NgxChessBoardService) 
+  constructor(private gameService:GameService, private modalService: NgbModal, config: NgbModalConfig)//private ngxChessBoardService: NgxChessBoardService) 
   {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    //this.white={username:"waiting...", rating:1000}
+    //this.black={username:"waiting...", rating:1000}
     this.onResize();
     this.getScreenSize();
     //game.
     console.log(this.size);
+    console.log(this.gameService.game.movements);
+    console.log("======================")
+    console.log(this.game)
+    console.log("======================")
     
   }
 
-  boardMoveListener(move:any)
+  public offerDraw()
   {
-    console.log(move);
+    this.gameService.offerDraw()
+  }
+  public resign()
+  {
+    this.gameService.resign()
+  }
+
+  public moveBoard(movement:any)
+  {
+    let toMove=movement.from+movement.to
+    if(movement.promotion)
+    {
+      let promotion=movement.promotion;
+      switch(promotion)
+      {
+        case 'q':toMove=toMove+'1';
+          break;
+        case 'r':toMove=toMove+'2';
+          break;
+        case 'b':toMove=toMove+'3';
+          break;
+        case 'n':toMove=toMove+'4';
+      }
+    }
+    console.log("Movement: "+toMove);
+    console.log(toMove)
+    this.listeningBoard=false;
+    this.board.move(toMove);
+    this.listeningBoard=true;
+  }
+
+  public onMoveReceived()
+  {
+    if(this.boardLoad)
+    {
+      let movementList=this.game.getMovementList();
+      console.log(movementList);
+      let movement = movementList[movementList.length-1];
+
+      console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]")
+      console.log(movement);
+      console.log("]]]]]]]]]]]]]]]]]]]]]]]]]]]")
+      
+      this.moveBoard(movement);
+    }
+    else
+      console.log("Not available resource yet")
+    
+  }
+
+  boardMoveListener(movement:any)
+  {
+    console.log(movement);
     if(this.listeningBoard)
     {
-      let parsedMovement=move.pgn.pgn.match(/[\w#|-|+]+$/)
-      console.log(parsedMovement);
-      this.game.move(parsedMovement);
-      this.updateMovements(parsedMovement);
+      //extract the last move from board pgn with regex (select last word block including special symbols like check, checkmate, castle...)
+      let parsedMovement=movement.pgn.pgn.match(/[\w#|\-|+|=]+$/)
+      let sendMovement=parsedMovement[0];
+      console.log("parsedMovement:")
+      console.log(parsedMovement[0]);
+      console.log(sendMovement)
+      this.game.move(parsedMovement[0]);
+      this.gameService.sendMove(parsedMovement[0]);
     }
   }
 
-  public updateMovements(movement:string)
-  {
-    let length=this.movements.length;
-    let lastTurn=this.movements[length-1].length;
-    //console.log("lastTurn: "+lastTurn);
-    if(lastTurn==2)
-      {
-        this.movements.push([movement]);
-      }
-      else
-      {
-        this.movements[length-1].push(movement);
-      }
-  }
 
   public waitBoardLoading = () =>
   {
     if(this.board===undefined)
     {
+      console.log("loading board...")
       setTimeout(()=>
       {this.waitBoardLoading()},100)
     }
@@ -165,12 +254,20 @@ getScreenSize() {
 
       this.listeningBoard=false;
 
-      for(let movement of this.game.history({ verbose: true }))
+      console.log("a")
+      let reverse=this.black['username']==localStorage['username'];
+      console.log("b")
+      console.log(this.black['username']);
+      console.log("c")
+      console.log(localStorage['username']);
+      if(reverse)
       {
-        console.log("Movement: "+movement);
-        console.log(movement.from+movement.to)
-        this.board.move(movement.from+movement.to);
+        this.board.reverse();
+        this.isBlack=true;
       }
+
+      for(let movement of this.game.getMovementList())
+        this.moveBoard(movement);
 
       this.listeningBoard=true;
     }
@@ -180,28 +277,27 @@ getScreenSize() {
   ngOnInit(): void {
 
     console.log("Init!!")
+
+    this.waitBoardLoading();
+
+    this.gameService.moveReceivedEvent().subscribe(lastMove => 
+    {
+      console.log("Last Move:")
+      console.log(lastMove);
+      this.onMoveReceived();
+    })
      
-    this.game.move('d4');
-    this.game.move('d5');
-    this.game.move('c4');
-    this.game.move('e6');
-    this.game.move('Nf3');
-    this.game.move('c6');
-    this.game.move('g3');
-    this.game.move('Nf6');
-    this.game.move('Bg2');
-    this.game.move('Nbd7');
-    this.game.move('Qc2');
-    this.game.move('Bd6');
-    this.game.move('O-O');
-    this.game.move('O-O');
-   
+    /*game.move('d4');
 
     let movementList=this.game.history();
 
     //while(this.board===undefined)
     //{
-      this.waitBoardLoading();
+      
+
+
+      
+      
     //}
 
 
@@ -222,9 +318,9 @@ getScreenSize() {
       {
         this.movements[n].push(movementList[i]);
       }
-    }
+    }*/
 
-    console.log(this.movements)
+    console.log(this.game.movements)
     
   }
 

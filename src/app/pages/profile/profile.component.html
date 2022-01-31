@@ -58,7 +58,7 @@
                                 <div class="form-row row justify-content-center align-items-stretch">
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">Name:</label>
-                                        <input type="text" name="_name" class="form-control col-6" [(ngModel)]="user.name" #_name="ngModel" placeholder="name..." 
+                                        <input type="text" name="_name" class="form-control col-6" [(ngModel)]="updatableUser.name" #_name="ngModel" placeholder="name..." 
                                         [ngClass]="{'is-invalid': _name.invalid}" _name required>                    
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                 <div class="form-row row justify-content-center align-items-stretch">
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">Surname:</label>
-                                        <input type="text" name="surname" class="form-control col-6" [(ngModel)]="user.surname"  #surname="ngModel" placeholder="surname..." 
+                                        <input type="text" name="surname" class="form-control col-6" [(ngModel)]="updatableUser.surname"  #surname="ngModel" placeholder="surname..." 
                                         [ngClass]="{'is-invalid': surname.invalid}" surname required>                    
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                 <div class="form-row row justify-content-center align-items-stretch">
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">Email:</label>
-                                        <input type="email" name="email" class="form-control col-6" [(ngModel)]="user.email" #email="ngModel" placeholder="email..." 
+                                        <input type="email" name="email" class="form-control col-6" [(ngModel)]="updatableUser.email" #email="ngModel" placeholder="email..." 
                                         [ngClass]="{'is-invalid': email.invalid}" email required>                    
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                 <div class="form-row row justify-content-center align-items-stretch">              
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">New Password:</label>
-                                        <input type="password" name="new_password" class="form-control col-6" [(ngModel)]="newPassword" #new_password="ngModel" placeholder="********" 
+                                        <input type="password" name="new_password" class="form-control col-6" [(ngModel)]="updatableUser.newPassword" #new_password="ngModel" placeholder="********" 
                                         [ngClass]="{'is-invalid': new_password.invalid}" new_password>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                                 <div class="form-row row justify-content-center align-items-stretch">               
                                     <div class="data_field form-group d-flex justify-content-center align-items-center flex-fill">
                                         <label for="_name" class="col-6">Actual Password:</label>
-                                        <input type="password" name="actual_password" class="form-control col-6" [(ngModel)]="actualPassword" #actual_password="ngModel" placeholder="********" 
+                                        <input type="password" name="actual_password" class="form-control col-6" [(ngModel)]="updatableUser.password" #actual_password="ngModel" placeholder="********" 
                                         [ngClass]="{'is-invalid': actual_password.invalid}" actual_password required>
                                     </div>
                                 </div>

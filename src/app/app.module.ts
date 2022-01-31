@@ -1,3 +1,9 @@
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -19,6 +25,7 @@ import { NgxChessBoardView } from "ngx-chess-board";
 import {AuthInterceptor} from "./models/auth-interceptor";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { GameOverModalComponent } from './pages/game-over-modal/game-over-modal.component';
 //import { NgxChessBoardService } from "ngx-chess-board";
 
 @NgModule({
@@ -32,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     ScoreboardComponent,
     ProfileComponent,
     AnalysisComponent,
-    NavbarComponent
+    NavbarComponent,
+    GameOverModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +49,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     NgxChessBoardModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     //NgxChessBoardService
   ],
   providers: [

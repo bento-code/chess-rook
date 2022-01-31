@@ -30,10 +30,10 @@ export class Clock
     public timeToString = (minutes:number, seconds:number):String =>
     {
         let time="";
-        if(minutes<10)
+        /*if(minutes<10)
         {
             time=time+"0";
-        }
+        }*/
         time=time+minutes+":";
         if(seconds<10)
         {

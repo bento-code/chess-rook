@@ -5,6 +5,8 @@ import { RegisterData } from '../models/register-data';
 //import 'rxjs/add/operator/map';
 //import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs';
+import { NotificationService } from './notification.service';
+import { HttpRoutes } from '../http-routes';
 
 //import { environment } from '@environments/environment';
 
@@ -15,10 +17,17 @@ import { Observable } from 'rxjs';
 export class AuthService 
 {
   //private authInterceptor:AuthInterceptor;
-  private urlRegister="https://chess-rook-rest-api.herokuapp.com/signup";
-  private urlLogin="https://chess-rook-rest-api.herokuapp.com/signin";
+  /*private urlRegister="http://localhost:3000/signup";
+  private urlLogin="http://localhost:3000/signin";*/
 
-  constructor(private http: HttpClient) 
+  private urlRegister=HttpRoutes.SIGN_UP_URL;
+  private urlLogin=HttpRoutes.SIGN_IN_URL;
+
+
+  /*private urlRegister="https://chess-rook-rest-api.herokuapp.com/signup";
+  private urlLogin="https://chess-rook-rest-api.herokuapp.com/signin";*/
+
+  constructor(private http: HttpClient, private notifyService:NotificationService) 
   {
     //this.authInterceptor = new AuthInterceptor();
   }
@@ -29,6 +38,8 @@ export class AuthService
 
     let registered=false;
 
+    this.notifyService.showWarning("","Creating User...!",undefined)
+
     let data=await this.http.post<any>(this.urlRegister, 
     {
       username:regData.username, 
@@ -37,10 +48,17 @@ export class AuthService
       name:regData.name,
       surname:regData.surname
     }).toPromise();
+
+    this.notifyService.clear();
     
     if(!data.failed)
     {
       registered=true;
+      this.notifyService.showSuccess("","User Created!",2000)
+    }
+    else
+    {
+      this.notifyService.showError("","Username already exists!",2000)
     }
 
     return registered;
@@ -59,6 +77,11 @@ export class AuthService
       console.log(data);
       this.setSession(data.jwt, username);
       logged=true;
+      this.notifyService.showSuccess("","Logged in succesfully!")
+    }
+    else
+    {
+      this.notifyService.showError("", "Invalid Credentials!")
     }
 
     return logged;

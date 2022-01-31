@@ -1,0 +1,166 @@
+*{
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+::ng-deep :root
+{
+    --globalHeight:50vh;
+    --resultFont:4vw
+}
+
+body
+{
+    height:var(--globalHeight);
+    background-color: white;
+}
+
+#data
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center;
+}
+
+.info 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:calc(var(--globalHeight) * 0.5)
+}
+
+.result_container 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height:calc(var(--globalHeight) * 0.5)
+}
+.game_over_info
+{
+    margin: 4%;
+}
+
+#button_text
+{
+    font-size: 1.8vw;
+    font-weight: bold;
+}
+
+.button
+{
+    margin-top:calc(var(--globalHeight) *0.05);
+    width:16vw;
+    height:calc(var(--globalHeight) *0.15);
+    background-color:rgb(74, 174, 255);
+    border:2px solid rgb(189, 189, 189);
+    border-radius:3px;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+
+.button_hover
+{
+    background-color:rgb(0, 140, 255);
+    border:2px solid rgb(0, 60, 255);
+    cursor: pointer;
+}
+
+.result_value
+{
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.username 
+{
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.rating{
+    text-align: center;
+}
+
+.space_m
+{
+    margin-bottom:8%
+}
+
+.space
+{
+    margin-bottom:5%
+}
+
+.space_s
+{
+    margin-bottom:2%;
+}
+.new_rating{
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.rating
+{
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.variation
+{
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+.green
+{
+    background-color: green;
+}
+
+.red
+{
+    background-color: red;
+}
+
+.yellow
+{
+    background-color: yellow;
+}
+
+.redText{
+    color: red;
+}
+
+.greenText
+{
+    color: green;
+}
+
+#result
+{
+    min-width:100%;
+    min-height: calc(var(--globalHeight) * 0.333);
+
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    
+
+}
+
+#result_text
+{
+    font-size:var(--resultFont);
+    text-align: center;
+    color:white;
+
+}

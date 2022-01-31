@@ -113,12 +113,12 @@
                         </section>
                     </article>
 
-                    <article class="child challenges_recieved">
+                    <article class="child challenges_received">
                         <div class="_6vh _header">                           
-                            Challenges Recieved
+                            Challenges Received
                         </div>
-                        <div id="challenges_recieved" class=" d-flex flex-column justify-content-top challenges_section">
-                            <div id="challenges_recieved_titles" class="d-flex flex-row justify-content-center challenges_titles">
+                        <div id="challenges_received" class=" d-flex flex-column justify-content-top challenges_section">
+                            <div id="challenges_received_titles" class="d-flex flex-row justify-content-center challenges_titles">
                                 <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_title">
                                     Username
                                 </div>
@@ -129,27 +129,27 @@
                                     Time Control
                                 </div>
                             </div>
-                            <div id="challenges_recieved_list" class="challenges_container">
-                                <ng-container id="challenges_recieved_container"  *ngFor="let challenge of challengesRecieved; let i=index">
-                                    <div class="d-flex flex-row justify-content-center challenge_item">
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
-                                            {{challenge.user.username}}
+                            <div id="challenges_received_list" class="challenges_container">
+                                <ng-container id="challenges_received_container"  *ngFor="let challenge of challengesReceived; let i=index">
+                                    <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="d-flex flex-row justify-content-center challenge_item">
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.senderUser.username}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
                                             {{challenge.usedRatingToString()}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
                                             {{challenge.time.toString()}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left">
-                                            <ng-container *ngIf="challengesRecieved[i].status=='pending';else status">
-                                                <p class="challenge_field challenge_status_link"><a href="#">Accept</a>/<a href="#">Decline</a></p>
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left">
+                                            <ng-container *ngIf="challengesReceived[i].status=='pending';else status">
+                                                <p class="challenge_field challenge_status_link "><a class="accept_button" (click)="acceptChallenge(i)">Accept</a></p>
                                             </ng-container>
                                             <ng-template #status>
-                                                {{challengesRecieved[i].status}}
+                                                {{challengesReceived[i].status}}
                                             </ng-template>
                                             
                                         </div>
@@ -178,20 +178,25 @@
                             <div id="challenges_sent_list" class="challenges_container">
                                 <ng-container id="challenges_sent_container"  *ngFor="let challenge of challengesSent; let i=index">
                                     <div class="d-flex flex-row justify-content-center challenge_item">
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
-                                            {{challenge.user.username}}
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                            {{challenge.receiverUser.username}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
                                             {{challenge.usedRatingToString()}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
                                             {{challenge.time.toString()}}
                                         </div>
 
-                                        <div class="col-3 d-flex flex-column justify-content-center align-items-left challenge_field">
-                                            {{challengesSent[i].status}}
+                                        <div [ngClass]="challenge.receiverUser.username==='*' ? 'publicSearch' : ''" class="col-3 d-flex flex-column justify-content-center align-items-left">
+                                            <ng-container *ngIf="challengesSent[i].status=='sent';else status2">
+                                                <p class="challenge_field challenge_status_link cancel_color"><a class= cancel_color (click)="cancelChallenge(i)">Cancel</a><p></p>
+                                            </ng-container>
+                                            <ng-template #status2>
+                                                {{challengesSent[i].status}}
+                                            </ng-template>
                                         </div>
                                     </div>
                                 </ng-container>

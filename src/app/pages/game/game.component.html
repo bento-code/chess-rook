@@ -2,63 +2,103 @@
     <div id="main_background">
         <div id="content">
             <app-navbar></app-navbar>
-            <div id="game_content" class="d-flex">
-                <div id="board_container">
-                    <ngx-chess-board 
-                        [size]="size" 
-                        [sourcePointColor]="sourcePointColor" 
-                        [destinationPointColor]="destinationPointColor"
-                        [lightTileColor]="lightTileColor" 
-                        [darkTileColor]="darkTileColor" 
-                        #board
-                        (moveChange)="boardMoveListener($event)">
-                    </ngx-chess-board>
-                </div>
+            
+            <section id="data" class="container">
 
-                
 
-                <div id="game_data" class="d-flex flex-column justify-content-top">
-                    <div id=data_container class="d-flex flex-row justify-content-center">
-
-                        <div id="clock" class="data_section col-6 d-flex flex-column justify-content-center">
-                            <div class="data_field black d-flex flex-row justify-content-around align-items-center">
-                                <div class="clock_field d-flex flex-column justify-content-center">
-                                    {{clock.blackTimeToString()}}
-                                </div>
-                            </div>
-                            <div class="data_field white d-flex flex-row justify-content-around align-items-center">
-                                <div class="clock_field d-flex flex-column justify-content-center">
-                                    {{clock.whiteTimeToString()}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="players" class="data_section col-6 d-flex flex-column justify-content-center">
-                            <div class="data_field black d-flex flex-row justify-content-around align-items-center">
-                                <div id="black_username" class="player_data">
-                                    {{black.username}}
-                                </div>
-                                <div id="black_rating" class="player_data">
-                                    {{black.rating.blitzActualRating}}
-                                </div>
-                            </div>
-                            <div class="data_field white d-flex flex-row justify-content-around align-items-center">
-                                <div id="white_username" class="player_data">
-                                    {{white.username}}
-                                </div>
-                                <div id="white_rating" class="player_data">
-                                    {{white.rating.blitzActualRating}}
-                                </div>
-                            </div>
-                        </div>
-                        
+                <article class="board1">
+                    <div id="boardConfig" >
+                        <ngx-chess-board
+                            [size]="size" 
+                            [sourcePointColor]="sourcePointColor" 
+                            [destinationPointColor]="destinationPointColor"
+                            [lightTileColor]="lightTileColor" 
+                            [darkTileColor]="darkTileColor"
+                            [lightDisabled]=isBlack
+                            [darkDisabled]="!isBlack" 
+                            [pieceIcons]="piecesLinks"
+                            #board
+                            (moveChange)="boardMoveListener($event)">
+                        </ngx-chess-board>
                     </div>
+                </article>
+
+
+
+                <article class="clock1">
+                    <div *ngIf="!isBlack" class="data_field black d-flex flex-row justify-content-around align-items-center">
+                        <div class="clock_field d-flex flex-column justify-content-center">
+                            {{clock.blackTimeToString()}}
+                        </div>
+                    </div>
+                    <div *ngIf="isBlack" class="data_field white d-flex flex-row justify-content-around align-items-center">
+                        <div class="clock_field d-flex flex-column justify-content-center">
+                            {{clock.whiteTimeToString()}}
+                        </div>
+                    </div>
+                </article>
+                <article class="clock2">
+                    <div *ngIf="isBlack" class="data_field black d-flex flex-row justify-content-around align-items-center">
+                        <div class="clock_field d-flex flex-column justify-content-center">
+                            {{clock.blackTimeToString()}}
+                        </div>
+                    </div>
+                    <div *ngIf="!isBlack" class="data_field white d-flex flex-row justify-content-around align-items-center">
+                        <div class="clock_field d-flex flex-column justify-content-center">
+                            {{clock.whiteTimeToString()}}
+                        </div>
+                    </div>
+                </article>
+                <article class="user1">
+                    <div *ngIf="!isBlack" class="data_field black d-flex flex-row justify-content-around align-items-center">
+                        <div id="black_username" class="player_data">
+                            {{black['username']}}
+                        </div>
+                        <div id="black_rating" class="player_data">
+                            {{black['rating']}}
+                        </div>
+                    </div>
+                    <div *ngIf="isBlack" class="data_field white d-flex flex-row justify-content-around align-items-center">
+                        <div id="white_username" class="player_data">
+                            {{white['username']}}
+                        </div>
+                        <div id="white_rating" class="player_data">
+                            {{white['rating']}}
+                        </div>
+                    </div>
+                </article>
+                <article class="user2">
+                    <div *ngIf="isBlack" class="data_field black d-flex flex-row justify-content-around align-items-center">
+                        <div id="black_username" class="player_data">
+                            {{black['username']}}
+                        </div>
+                        <div id="black_rating" class="player_data">
+                            {{black['rating']}}
+                        </div>
+                    </div>
+                    <div *ngIf="!isBlack" class="data_field white d-flex flex-row justify-content-around align-items-center">
+                        <div id="white_username" class="player_data">
+                            {{white['username']}}
+                        </div>
+                        <div id="white_rating" class="player_data">
+                            {{white['rating']}}
+                        </div>
+                    </div>
+                </article>
+                <article class="action1 d-flex flex-row justify-content-center align-items-center">
+                    <article class="action" id="offerDraw" (click)="offerDraw()" (mouseover)="selectedDraw=true" (mouseout)="selectedDraw=false" [ngClass]="selectedDraw ? 'draw_hover' : 'draw_default'">Draw</article>
+                </article>
+                <article class="action2 d-flex flex-row justify-content-center align-items-center">
+                    <article class="action" id="resign" (click)="resign()" (mouseover)="selectedResign=true" (mouseout)="selectedResign=false" [ngClass]="selectedResign ? 'resign_hover' : 'resign_default'">Resign</article>
+                </article>
+                <article class="moves1">
                     <div id="movements" class=" d-flex flex-column justify-content-top mt-0">
+                        
                         <div id="moves_header">
-                            <h2>Moves</h2>
+                            Moves
                         </div>
                         <div id="moves_titles" class="d-flex flex-row justify-content-center">
-                            <div class="col-2 d-flex flex-column justify-content-center align-items-center move_border_bottom">
+                            <div class="col-2 d-flex flex-column justify-content-center align-items-center moves_title move_border_bottom">
                                 N
                             </div>
                             <div class="col-5 d-flex flex-column justify-content-center align-items-center moves_title move_border_left move_border_bottom">
@@ -93,8 +133,8 @@
                             </ng-container>
                         </div>       
                     </div>
-                </div>  
-            </div>
+                </article>
+            </section>
         </div>
     </div>
 </div>
