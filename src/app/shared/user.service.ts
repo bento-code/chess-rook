@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { HttpRoutes } from '../http-routes';
 import { LocalUser } from '../models/local-user';
 import { Rating } from '../models/rating';
 import { UpdatableUser } from '../models/updatable-user';
@@ -12,10 +13,10 @@ import { NotificationService } from './notification.service';
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private notifyService:NotificationService) { }
+  constructor(private http: HttpClient, private notifyService:NotificationService) {console.log(this.url) }
 
   //private url="https://chess-rook-rest-api.herokuapp.com/user"
-  private url="http://localhost:3000/user"
+  private url=HttpRoutes.USER_URL;
 
 
 
