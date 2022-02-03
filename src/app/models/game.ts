@@ -1,6 +1,7 @@
 import { Challenge } from "./challenge";
 import { Clock } from "./clock";
 import { Rating } from "./rating";
+import { Timer } from "./timer";
 import { User } from "./user";
 
 const Chess:any = require('chess.js');
@@ -13,12 +14,14 @@ export class Game
     public white={username:"waiting...", rating: 1000}; 
     public black={username:"waiting...", rating: 1000}; 
     public clock:Clock;
+    public timer:Timer;
 
     constructor(whiteUsername:string, blackUsername:string, whiteRating:number, blackRating:number, clock:Clock)
     {
        this.white={username:whiteUsername, rating: whiteRating}; 
        this.black={username:blackUsername, rating: blackRating}; 
        this.clock = clock;
+       this.timer=new Timer(this.clock);
 
     }
 

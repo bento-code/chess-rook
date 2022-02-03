@@ -54,10 +54,12 @@ export class ChallengeService {
 
   cancelChallenge(index:number)//index of challenge in challengesRecieved array
   {
-    let challengeId=this.challengesSent[index].id;
+    /*let challengeId=this.challengesSent[index].id;*/
     console.log("Canceling Challenge...");
-    this.socket.io.emit("cancelChallenge", challengeId);
-    console.log(challengeId);
+    this.socket.io.emit("cancelChallenge", index);
+    console.log(index);
+    /*this.socket.io.emit("cancelChallenge", challengeId);
+    console.log(challengeId);*/
   }
 
 

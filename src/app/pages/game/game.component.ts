@@ -50,6 +50,7 @@ public clock:Clock=this.gameService.game.clock;
 
 public closeResult = '';
 
+//Pieces to show in game board
 public piecesLinks=
 {
   whiteKingUrl: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Chess_klt60.png",
@@ -167,6 +168,7 @@ getScreenSize() {
     console.log("======================")
     console.log(this.game)
     console.log("======================")
+    //this.game.timer.startWhiteTimer()
     
   }
 
