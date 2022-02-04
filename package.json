@@ -28,6 +28,7 @@
     "chessboardjs-import": "^1.0.1",
     "cm-chess": "^2.1.6",
     "express": "^4.17.2",
+    "microtime": "^3.0.0",
     "ngx-chess-board": "^2.1.18",
     "ngx-socket-io": "^4.1.0",
     "ngx-toastr": "^14.2.1",

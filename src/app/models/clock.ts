@@ -6,11 +6,13 @@ export class Clock
     public increment:number;
     public whiteTime:PlayerTime;
     public blackTime:PlayerTime;
+    public miliseconds:number;
     constructor(whiteTime:PlayerTime=new PlayerTime(), blackTime:PlayerTime=new PlayerTime(),increment:number=0)
     {
         this.blackTime=blackTime;
         this.whiteTime=whiteTime;
         this.increment=increment;
+        this.miliseconds=0;
     }
     public whiteTimeToString = ():String =>
     {

@@ -3,40 +3,48 @@ import { PlayerTime } from "./player-time";
 
 export class Timer 
 {
+    //white to move or black
+    private turn=true;
+    //private date=new Date();
     private clock:Clock;
     private whiteInterval:NodeJS.Timeout;
     private blackInterval:NodeJS.Timeout;
-    private whiteTimeLeft:number;
-    private blackTimeLeft:number;
+    public whiteMsLeft:number;
+    public blackMsLeft:number;
+    public initialWhiteMs:number;
+    public initialBlackMs:number;
+    public initialWhiteTimestamp:number;
+    public initialBlackTimestamp:number;
+    /*private whiteTimeLeft:number;
+    private blackTimeLeft:number;*/
     constructor(clock:Clock)
     {
         this.clock=clock;
-        this.whiteTimeLeft=this.getSecondsOfPlayerTime(clock.whiteTime);
-        this.blackTimeLeft=this.getSecondsOfPlayerTime(clock.blackTime);
-        /*
-        this.whiteTimeLeft=3600*clock.whiteTime.hours+60*clock.whiteTime.minutes+clock.whiteTime.seconds
-        this.blackTimeLeft=3600*clock.blackTime.hours+60*clock.blackTime.minutes+clock.whiteTime.seconds
-        */
+        this.whiteMsLeft=1000*this.getSecondsOfPlayerTime(clock.whiteTime);
+        this.blackMsLeft=1000*this.getSecondsOfPlayerTime(clock.blackTime);
+        this.initialWhiteMs=this.whiteMsLeft;
+        this.initialBlackMs=this.blackMsLeft;
+
     }
 
     private updateWhiteClock()
     {
-        this.clock.whiteTime=this.getPlayerTimeFromSeconds(this.whiteTimeLeft);
+        this.clock.whiteTime=this.getPlayerTimeFromSeconds(Math.floor(this.whiteMsLeft/1000));
     }
     private updateBlackClock()
     {
-        this.clock.blackTime=this.getPlayerTimeFromSeconds(this.blackTimeLeft);
+        this.clock.blackTime=this.getPlayerTimeFromSeconds(Math.floor(this.blackMsLeft/1000));
     }
 
     public incrementWhite = () =>
     {
-        this.whiteTimeLeft=this.whiteTimeLeft+this.clock.increment;
+        this.whiteMsLeft=this.whiteMsLeft+this.clock.increment*1000;
         this.updateWhiteClock()
     }
 
     public incrementBlack = () =>
     {
-        this.blackTimeLeft=this.blackTimeLeft+this.clock.increment;
+        this.blackMsLeft=this.blackMsLeft+this.clock.increment*1000;
         this.updateBlackClock()
     }
 
@@ -62,40 +70,69 @@ export class Timer
 
     startWhiteTimer() 
     {
-    this.whiteInterval = setInterval(() => 
-    {
-    console.log("Time: "+this.whiteTimeLeft)
-      if(this.whiteTimeLeft > 0) 
-      {
-        this.whiteTimeLeft--;
-        this.updateWhiteClock();
-      } 
-      else 
-      {
-        this.whiteTimeLeft = 0;
-      }
-    },1000)
-  }
+      let initDate=new Date()
+      this.initialWhiteTimestamp=initDate.getTime();
+      this.initialBlackTimestamp=initDate.getTime();
 
-  startBlackTimer() {
-    this.blackInterval = setInterval(() => 
-    {
-      if(this.blackTimeLeft > 0) 
+      this.whiteInterval = setInterval(() => 
       {
-        this.blackTimeLeft--;
-        this.updateBlackClock();
-      } 
-      else 
-      {
-        this.blackTimeLeft = 0;
-      }
-    },1000)
-  }
+        let date=new Date()
+        if(this.whiteMsLeft > 0) 
+        {
+          this.whiteMsLeft=this.initialWhiteMs-(date.getTime()-this.initialWhiteTimestamp);
+          this.updateWhiteClock();
+        } 
+        else 
+        {
+          this.whiteMsLeft = 0;
+        }
+      },30)
+    }
 
-  pauseWhiteTimer() {
+    startBlackTimer() 
+    {
+      let initDate=new Date();
+      this.initialWhiteTimestamp=initDate.getTime();
+      this.initialBlackTimestamp=initDate.getTime();
+
+      this.blackInterval = setInterval(() => 
+      {
+        let date=new Date();
+        if(this.blackMsLeft > 0) 
+        {
+          this.blackMsLeft=this.initialBlackMs-(date.getTime()-this.initialBlackTimestamp);
+          this.updateBlackClock();
+        } 
+        else 
+        {
+          this.blackMsLeft = 0;
+        }
+      },30)
+    }
+
+  pauseWhiteTimer() 
+  {
+    this.initialWhiteMs=this.whiteMsLeft;
     clearInterval(this.whiteInterval);
   }
-  pauseBlackTimer() {
+  pauseBlackTimer() 
+  {
+    this.initialBlackMs=this.blackMsLeft;
     clearInterval(this.blackInterval);
+  }
+
+  move()
+  {
+    if(this.turn)
+    {
+      this.pauseWhiteTimer();
+      this.startBlackTimer();
+    }
+    else
+    {
+      this.pauseBlackTimer();
+      this.startWhiteTimer();
+    }
+    this.turn=!this.turn;
   }
 }

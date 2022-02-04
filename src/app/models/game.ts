@@ -52,10 +52,16 @@ export class Game
       }
     }
 
-    public move(movement:string)
+    public move(gameState:any)
     {
-        this.game.move(movement);
-        this.updateMovements(movement);
+      this.game.move(gameState.movement);
+      this.updateMovements(gameState.movement);
+      if(gameState.whiteTime!==undefined&&gameState.blackTime!==undefined)
+      {
+        this.timer.whiteMsLeft=gameState.whiteTime;
+        this.timer.blackMsLeft=gameState.blackTime;
+      }
+      this.timer.move();
     }
 
     public pgn()

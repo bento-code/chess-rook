@@ -46,11 +46,11 @@ export class GameService {
 
   onMoveEvent()
   {
-    this.socket.io.on(("receiveMove"), (movement) =>
+    this.socket.io.on(("receiveMove"), (gameState) =>
     {
       console.log("player moved!");
-      console.log(movement)
-      this.receiveMove(movement);
+      console.log(gameState)
+      this.receiveMove(gameState);
     })
   }
 
@@ -128,19 +128,21 @@ export class GameService {
     console.log("Movement sent!");
   }
 
-  public receiveMove(movement:string)
+  //public receiveMove(movement:string)
+  public receiveMove(gameState:any)
   {
-    console.log("received move:"+movement)
-    this.move(movement);
+    console.log("received move:"+gameState.movement)
+    this.move(gameState);
     //let parsedMovement=move.pgn.pgn.match(/[\w#|-|+]+$/)
-    this.lastMoveRecieved.next(movement);
+    this.lastMoveRecieved.next(gameState.movement);
+    //this.game.clock.whiteTime=gameState.
   }
 
-  public move(movement:string)
+  public move(gameState:any)
   {
-    console.log("Movement: "+movement);
+    console.log("Movement: "+gameState.movement);
         //this.board.move(movement.from+movement.to);
-    this.game.move(movement);
+    this.game.move(gameState);
     console.log(this.game.pgn())
     /*for(let movement of this.gameService.game.history({ verbose: true }))
       {

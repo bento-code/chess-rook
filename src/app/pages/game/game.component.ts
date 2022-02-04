@@ -97,54 +97,6 @@ getScreenSize() {
   
 
   @ViewChild('board', { static: false }) board: NgxChessBoardView;
-  
-
-
-  /*public start = () =>
-  {
-    console.log("board: "+this.board);
-    //this.board=undefined;
-    //console.log(board);
-  }*/
-
-
-
-  /*ngAfterViewInit() 
-  {
-    
-    this.game.move('d4');
-    this.game.move('d5');
-    this.game.move('c4');
-    this.game.move('e6');
-    this.game.move('Nf3');
-    this.game.move('c6');
-    this.game.move('g3');
-    this.game.move('Nf6');
-    this.game.move('Bg2');
-    this.game.move('Nbd7');
-    this.game.move('Qc2');
-    this.game.move('Bd6');
-    this.game.move('O-O');
-    this.game.move('O-O');
-   
-    let movementList=this.game.history();
-    console.log(movementList)
-    for(let i=0; i<movementList.length;i++)
-    {
-      console.log(movementList[i])
-      let n=Math.floor(i/2);
-      let j=i%2;
-      if(j==0)
-      {
-        this.movements.push([movementList[i]]);
-      }
-      else
-      {
-        this.movements[n].push(movementList[i]);
-      }
-    }
-    console.log(this.movements)
-  }*/
 
   showGameOver(gameOverInfo: GameOverInfo=new GameOverInfo()) {
     const modalRef = this.modalService.open(GameOverModalComponent, { centered: true, size: 'lg' });
@@ -235,7 +187,7 @@ getScreenSize() {
       console.log("parsedMovement:")
       console.log(parsedMovement[0]);
       console.log(sendMovement)
-      this.game.move(parsedMovement[0]);
+      this.game.move({movement: parsedMovement[0]});
       this.gameService.sendMove(parsedMovement[0]);
     }
   }
